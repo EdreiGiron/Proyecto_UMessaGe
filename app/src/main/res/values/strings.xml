@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">umgmesage</string>
+    <string name="txv_iniciar">Iniciar Sesion</string>
+    <string name="password">Contraseña</string>
+    <string name="olvido_su_clave">¿Olvido su Clave?</string>
+    <string name="btn_ingresar">Ingresar</string>
+    <string name="no_tiene_una_cuenta">¿No tiene cuenta?</string>
+    <string name="registrese">Regitrarse</string>
+    <string name="confirm_password">Confirmar contraseña</string>
+</resources>

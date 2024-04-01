@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimaryDark">#3262C4</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorRed">#C11515</color>
+    <color name="background_login">#FF1C72A5</color>
+    <color name="hint_login">#80262626</color>
+    <color name="login_button">#0386D0</color>
+    <color name="forgot_password">#D4FAA916</color>
+    <color name="umessage_logo">#CB342F</color>
+</resources>
+

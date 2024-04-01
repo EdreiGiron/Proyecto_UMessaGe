@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "940235980955",
+    "project_id": "umessage-9052e",
+    "storage_bucket": "umessage-9052e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:940235980955:android:1977c2c2f6b3a0e6e4063e",
+        "android_client_info": {
+          "package_name": "com.example.umgmesage"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBBXAYw0CIIAZNMQNfHXDHSMB9i1WnHF_M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:940235980955:android:7c07af3301f1e569e4063e",
+        "android_client_info": {
+          "package_name": "com.umg.umessage"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBBXAYw0CIIAZNMQNfHXDHSMB9i1WnHF_M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
