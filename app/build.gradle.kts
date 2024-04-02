@@ -8,6 +8,10 @@ android {
     namespace = "com.example.umgmesage"
     compileSdk = 34
 
+    viewBinding{
+        enable=true
+    }
+
     defaultConfig {
         applicationId = "com.example.umgmesage"
         minSdk = 30
@@ -45,7 +49,13 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.firebase.auth)
+    implementation(libs.firebase.database.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    //Firebase
+    implementation(platform("com.google.firebase:firebase-bom:32.3.1"))
+    implementation("com.google.firebase:firebase-firestore")
+    implementation("com.google.firebase:firebase-analytics")
 }

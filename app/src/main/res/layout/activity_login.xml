@@ -136,6 +136,7 @@
         android:layout_marginTop="24dp"
         android:backgroundTint="@color/login_button"
         android:text="@string/btn_ingresar"
+        android:textColor="@color/colorWhite"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="@+id/inputPassword"
         app:layout_constraintStart_toStartOf="@+id/inputPassword"
