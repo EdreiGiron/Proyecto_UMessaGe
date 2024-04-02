@@ -5,13 +5,25 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".HomeActivity">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/txtMostrarCorreo"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Mensajes van aqui!"
+
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtMostrarUID"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Mensajes van aqui!"
+        app:layout_constraintBottom_toTopOf="@id/txtMostrarCorreo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
