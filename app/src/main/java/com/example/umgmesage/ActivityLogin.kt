@@ -8,8 +8,9 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.FirebaseDatabase
 
 class ActivityLogin : AppCompatActivity() {
 
@@ -38,7 +39,6 @@ class ActivityLogin : AppCompatActivity() {
         mProgressBar = ProgressDialog(this)
 
         mAuth = FirebaseAuth.getInstance()
-
     }
 
     private fun verificarCredenciales() {
@@ -55,17 +55,10 @@ class ActivityLogin : AppCompatActivity() {
 
                 mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        val auth = mAuth;
-                        val user = auth.currentUser;
                         mProgressBar.dismiss()
-                        val homeIntent = Intent(this@ActivityLogin, ChatsActivity::class.java)
-                        homeIntent.putExtra("userErmail", email)
-                            if (user != null) {
-                                homeIntent.putExtra("userId", user.uid.toString())
-                            }
-
-                        homeIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                        startActivity(homeIntent)
+                        val intent = Intent(this@ActivityLogin, MainActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                        startActivity(intent)
                     } else {
                         Toast.makeText(applicationContext, "No se pudo iniciar sesion, verifique los datos de correo/password", Toast.LENGTH_LONG).show()
                     }
