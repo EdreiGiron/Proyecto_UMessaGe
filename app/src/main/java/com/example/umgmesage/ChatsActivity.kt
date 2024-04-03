@@ -2,6 +2,7 @@ package com.example.umgmesage
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -33,6 +34,7 @@ class ChatsActivity : AppCompatActivity() {
 
     private fun initComponents() {
         userId=intent.getStringExtra("userId") ?:""
+        Log.e("ChatsActivity.initComponents",userId)
         userChatsCollection = ChatsCollection(userId)
         chatsList = mutableListOf()
         subscribeToChatUpdates()

@@ -3,6 +3,7 @@ package com.example.umgmesage
 import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -55,9 +56,12 @@ class ActivityLogin : AppCompatActivity() {
 
                 mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
                     if (task.isSuccessful) {
+                        val user=mAuth.currentUser
                         mProgressBar.dismiss()
-                        val intent = Intent(this@ActivityLogin, MainActivity::class.java)
+                        val intent = Intent(this@ActivityLogin, ChatsActivity::class.java)
                         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                        Log.e("verificarCredenciasles",user!!.uid)
+                        intent.putExtra("userId",user!!.uid)
                         startActivity(intent)
                     } else {
                         Toast.makeText(applicationContext, "No se pudo iniciar sesion, verifique los datos de correo/password", Toast.LENGTH_LONG).show()

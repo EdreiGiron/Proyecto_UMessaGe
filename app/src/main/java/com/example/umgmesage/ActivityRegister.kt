@@ -69,7 +69,7 @@ class ActivityRegister : AppCompatActivity() {
                         mProgressBar.dismiss()
                         newuser.userId="" //TODO("Agregar  uid generado en auth")
                         newuser.userEmail=email
-                        newuser.userName=email.substringAfter('@').orEmpty()//TODO("Agregar nombre de usuario")
+                        newuser.userName=email.substringBefore('@').orEmpty()//TODO("Agregar nombre de usuario")
                         newuser.hasCustomIcon=false//TODO("Agregar funcionalidad de imagenes para que ingrese el path /Users/<uid>/Icon.png")
                         userCollections.insertUser(newuser)
                         val intent = Intent(this@ActivityRegister, ActivityLogin::class.java)
