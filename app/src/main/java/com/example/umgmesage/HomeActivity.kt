@@ -1,7 +1,6 @@
 package com.example.umgmesage
 
 import android.os.Bundle
-import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
@@ -12,19 +11,19 @@ class HomeActivity : AppCompatActivity() {
 
 
 
-        val email:String? = intent.extras?.getString("email").orEmpty()
-        val uid:String? = intent.extras?.getString("uid").orEmpty()
+        //val email:String? = intent.extras?.getString("email").orEmpty()
+        //val uid:String? = intent.extras?.getString("userId").orEmpty()
 
-        mostrarCredenciales(email,uid)
+        //mostrarCredenciales(email,uid)
 
     }
 
-    private fun mostrarCredenciales(email: String?, uid: String?){
+  /*  private fun mostrarCredenciales(email: String?, uid: String?){
 
         val txtMostrarUID = findViewById<TextView>(R.id.txtMostrarUID)
         val txtMostrarCorreo = findViewById<TextView>(R.id.txtMostrarCorreo)
         txtMostrarUID.text = email
         txtMostrarCorreo.text = uid
-    }
+    }*/
 
 }

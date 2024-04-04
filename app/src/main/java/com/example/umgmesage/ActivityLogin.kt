@@ -3,14 +3,11 @@ package com.example.umgmesage
 import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 
 class ActivityLogin : AppCompatActivity() {
@@ -45,8 +42,10 @@ class ActivityLogin : AppCompatActivity() {
     private fun verificarCredenciales() {
         val email = txtInputEmail.text.toString()
         val password = txtInputPassword.text.toString()
+
+
         when {
-            email.isEmpty() || !email.contains("@") -> showError(txtInputEmail, "Email no valido. valide bien por favor")
+            email.isEmpty() || !email.contains("@") -> showError(txtInputEmail, "Por favor ingrese su correo electrónico")
             password.isEmpty() || password.length < 7 -> showError(txtInputPassword, "Password invalida")
             else -> {
                 mProgressBar.setTitle("Login")
@@ -56,12 +55,16 @@ class ActivityLogin : AppCompatActivity() {
 
                 mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        val user=mAuth.currentUser
+                        val auth = mAuth;
+                        val user = auth.currentUser;
                         mProgressBar.dismiss()
                         val intent = Intent(this@ActivityLogin, ChatsActivity::class.java)
-                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                        Log.e("verificarCredenciasles",user!!.uid)
-                        intent.putExtra("userId",user!!.uid)
+                        intent.putExtra("email", email)
+                        if (user != null) {
+                            intent.putExtra("userId", user.uid)
+                        }
+
+                            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                         startActivity(intent)
                     } else {
                         Toast.makeText(applicationContext, "No se pudo iniciar sesion, verifique los datos de correo/password", Toast.LENGTH_LONG).show()
