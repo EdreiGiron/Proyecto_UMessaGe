@@ -32,7 +32,7 @@ class ChatsViewHolder(view:View):RecyclerView.ViewHolder(view){
         val thisDate=Calendar.getInstance()
         thisDate.time=date
         val formatSameDay = SimpleDateFormat("HH:mm", Locale.getDefault())
-        val formatSameWeek = SimpleDateFormat("EEEE", Locale.getDefault())
+        val formatSameWeek = SimpleDateFormat("EEEE HH:mm", Locale.getDefault())
         val formatSameYear = SimpleDateFormat("d MMMM", Locale.getDefault())
         val formatDMY = SimpleDateFormat("dd/MM/yy", Locale.getDefault())
 

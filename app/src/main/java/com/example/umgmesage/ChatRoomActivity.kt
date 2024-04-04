@@ -4,12 +4,6 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.firebase.Timestamp
-import com.google.firebase.firestore.DocumentChange
-import com.google.firebase.firestore.Query
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import com.example.umgmesage.databinding.ActivityChatRoomBinding
 import com.example.umgmesage.messaging.Controllers.MessageAdapter
 import com.example.umgmesage.messaging.Models.Chat
@@ -18,6 +12,12 @@ import com.example.umgmesage.messaging.Models.User
 import com.example.umgmesage.messaging.firebase.ChatsCollection
 import com.example.umgmesage.messaging.firebase.MessagesCollection
 import com.example.umgmesage.messaging.firebase.UsersCollection
+import com.google.firebase.Timestamp
+import com.google.firebase.firestore.DocumentChange
+import com.google.firebase.firestore.Query
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class ChatRoomActivity : AppCompatActivity() {
 
@@ -29,8 +29,8 @@ class ChatRoomActivity : AppCompatActivity() {
     private lateinit var userList: MutableList<User>
     private lateinit var messageAdapter: MessageAdapter
     private lateinit var chat: Chat
-    private lateinit var userId:String
-    private lateinit var chatId:String
+    private lateinit var userId: String
+    private lateinit var chatId: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +39,7 @@ class ChatRoomActivity : AppCompatActivity() {
         initComponents()
         subscribeToUsersUpdates()
         subscribeToMessageUpdates()
+        subscribeToChatUpdates()
         initUI()
         initListeners()
     }
@@ -47,10 +48,9 @@ class ChatRoomActivity : AppCompatActivity() {
         userId = intent.getStringExtra("userId").orEmpty()
         chatId = intent.getStringExtra("chatId").orEmpty()
         chatCollection = ChatsCollection(userId)
-        usersCollection=UsersCollection()
+        usersCollection = UsersCollection()
         messagesCollection = MessagesCollection(chatId)
-        chat = chatCollection.getChat(chatId)
-        userList= mutableListOf()
+        userList = mutableListOf()
         messageList = mutableListOf()
     }
 
@@ -59,16 +59,18 @@ class ChatRoomActivity : AppCompatActivity() {
         binding.chatRecyclerView.layoutManager = LinearLayoutManager(this)
         binding.chatRecyclerView.adapter = messageAdapter
 
-        binding.otherUsername.text=chat.chatName
     }
 
     private fun initListeners() {
         binding.messageSendBtn.setOnClickListener {
-            val newMessage= Message()
-            newMessage.senderId=userId
-            newMessage.text=binding.chatMessageInput.text.toString()
-            newMessage.messageTimestamp=Timestamp.now()
+            val newMessage = Message()
+            newMessage.senderId = userId
+            newMessage.text = binding.chatMessageInput.text.toString()
+            newMessage.messageTimestamp = Timestamp.now()
             messagesCollection.insertMessage(newMessage)
+            chat.lastMessage="${userList.find { it.userId==userId }!!.userName}: ${newMessage.text}"
+            chat.lastMessageTimestamp=newMessage.messageTimestamp
+            chatCollection.updateChat(chat)
         }
 
         binding.backBtn.setOnClickListener {
@@ -76,9 +78,47 @@ class ChatRoomActivity : AppCompatActivity() {
         }
     }
 
+    private fun subscribeToChatUpdates() {
+        CoroutineScope(Dispatchers.IO).launch() {
+            chatCollection.userChatsList.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
+                firebaseFirestoreException?.let {
+                    runOnUiThread {
+                        Toast.makeText(
+                            binding.root.context,
+                            "Error en sincronización a Firestore: $it",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                    return@addSnapshotListener
+                }
+                if (querySnapshot?.documentChanges != null) {
+                    for (dc in querySnapshot.documentChanges) {
+                        chat = when (dc.type) {
+                            DocumentChange.Type.ADDED -> {
+                                chatCollection.documentToChatItem(dc.document)
+                            }
+
+                            DocumentChange.Type.REMOVED -> {
+                                chatCollection.documentToChatItem(dc.document)
+                            }
+
+                            DocumentChange.Type.MODIFIED -> {
+                                chatCollection.documentToChatItem(dc.document)
+                            }
+                        }
+
+                        }
+                    runOnUiThread{binding.otherUsername.text = chat.chatName}
+                }
+            }
+        }
+    }
+
     private fun subscribeToMessageUpdates() {
         CoroutineScope(Dispatchers.IO).launch {
-            messagesCollection.messagesCollectionReference.orderBy("messageTimestamp", Query.Direction.DESCENDING).addSnapshotListener { querySnapshot, firebaseFirestoreException ->
+            messagesCollection.messagesCollectionReference.orderBy(
+                "messageTimestamp", Query.Direction.DESCENDING
+            ).addSnapshotListener { querySnapshot, firebaseFirestoreException ->
                 firebaseFirestoreException?.let {
                     runOnUiThread {
                         Toast.makeText(
@@ -115,7 +155,7 @@ class ChatRoomActivity : AppCompatActivity() {
 
                     }
                     runOnUiThread {
-                        messageAdapter.updateList(messageList,userList)
+                        messageAdapter.updateList(messageList, userList)
                     }
                 }
             }
@@ -124,41 +164,50 @@ class ChatRoomActivity : AppCompatActivity() {
 
     private fun subscribeToUsersUpdates() {
         CoroutineScope(Dispatchers.IO).launch {
-            usersCollection.userCollectionReference.orderBy("userName").addSnapshotListener { querySnapshot, firebaseFirestoreException ->
-                firebaseFirestoreException?.let {
-                    runOnUiThread {
-                        Toast.makeText(
-                            binding.root.context,
-                            "Error en sincronización a Firestore: $it",
-                            Toast.LENGTH_LONG
-                        ).show()
+            usersCollection.userCollectionReference.orderBy("userName")
+                .addSnapshotListener { querySnapshot, firebaseFirestoreException ->
+                    firebaseFirestoreException?.let {
+                        runOnUiThread {
+                            Toast.makeText(
+                                binding.root.context,
+                                "Error en sincronización a Firestore: $it",
+                                Toast.LENGTH_LONG
+                            ).show()
+                        }
+                        return@addSnapshotListener
                     }
-                    return@addSnapshotListener
-                }
-                if (querySnapshot?.documentChanges != null) {
-                    for (dc in querySnapshot.documentChanges) {
-                        when (dc.type) {
-                            DocumentChange.Type.ADDED -> {
-                                userList.add(usersCollection.documentToUserItem(dc.document))
-                            }
+                    if (querySnapshot?.documentChanges != null) {
+                        for (dc in querySnapshot.documentChanges) {
+                            when (dc.type) {
+                                DocumentChange.Type.ADDED -> {
+                                    userList.add(usersCollection.documentToUserItem(dc.document))
+                                }
 
-                            DocumentChange.Type.REMOVED -> userList.removeAt(userList.indexOfFirst { it.userId == dc.document.data.get("userId").toString() })
-                            DocumentChange.Type.MODIFIED -> {
-                                val userToUpdate =
-                                    userList.find { it.userId == dc.document.data.get("userId").toString() }
-                                userToUpdate?.apply {
-                                    this.userName = dc.document.getString("userName").orEmpty()
-                                    this.userEmail =dc.document.getString("userEmail").orEmpty()
-                                    this.hasCustomIcon = dc.document.getBoolean("hasCustomIcon") ?: false
+                                DocumentChange.Type.REMOVED -> userList.removeAt(userList.indexOfFirst {
+                                    it.userId == dc.document.data.get(
+                                        "userId"
+                                    ).toString()
+                                })
+
+                                DocumentChange.Type.MODIFIED -> {
+                                    val userToUpdate = userList.find {
+                                        it.userId == dc.document.data.get("userId").toString()
+                                    }
+                                    userToUpdate?.apply {
+                                        this.userName = dc.document.getString("userName").orEmpty()
+                                        this.userEmail =
+                                            dc.document.getString("userEmail").orEmpty()
+                                        this.hasCustomIcon =
+                                            dc.document.getBoolean("hasCustomIcon") ?: false
+                                    }
                                 }
                             }
                         }
-                    }
-                    runOnUiThread {
-                        messageAdapter.updateList(messageList,userList)
+                        runOnUiThread {
+                            messageAdapter.updateList(messageList, userList)
+                        }
                     }
                 }
-            }
         }
     }
 }

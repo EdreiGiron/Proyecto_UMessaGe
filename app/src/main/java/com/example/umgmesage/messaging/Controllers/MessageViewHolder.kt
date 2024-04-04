@@ -4,6 +4,7 @@ import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.example.umgmesage.databinding.ItemForListChatRoomBinding
+import com.example.umgmesage.messaging.Models.Chat
 import com.example.umgmesage.messaging.Models.Message
 import com.example.umgmesage.messaging.Models.User
 import java.text.SimpleDateFormat
@@ -32,7 +33,7 @@ class MessageViewHolder(view: View): RecyclerView.ViewHolder(view){
         val thisDate= Calendar.getInstance()
         thisDate.time=date
         val formatSameDay = SimpleDateFormat("HH:mm", Locale.getDefault())
-        val formatSameWeek = SimpleDateFormat("EEEE", Locale.getDefault())
+        val formatSameWeek = SimpleDateFormat("EEEE HH:mm", Locale.getDefault())
         val formatSameYear = SimpleDateFormat("d MMMM", Locale.getDefault())
         val formatDMY = SimpleDateFormat("dd/MM/yy", Locale.getDefault())
 
