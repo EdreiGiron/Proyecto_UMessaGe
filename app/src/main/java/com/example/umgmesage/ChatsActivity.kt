@@ -49,7 +49,8 @@ class ChatsActivity : AppCompatActivity() {
     private fun navigateToChatRoom(chat: Chat) {
         val intent = Intent(this, ChatRoomActivity::class.java)
         intent.putExtra("userId", userId)
-        intent.putExtra("chatId",chat.chatId.toString())
+        intent.putExtra("chatId",chat.chatId)
+        Log.e("navigateToChatRoom","$userId - ${chat.chatId}")
         startActivity(intent)
     }
 

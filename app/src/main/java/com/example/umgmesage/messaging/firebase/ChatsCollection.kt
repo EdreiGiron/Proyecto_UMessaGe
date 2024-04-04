@@ -88,46 +88,26 @@ class ChatsCollection(userId: String) {
         var chat = Chat()
         chatCollectionReference.document(chatId).get().addOnSuccessListener {
             chat = documentToChatItem(it)
+            Log.e("getChat","$it")
         }
         return chat
     }
 
     private fun documentToChatItem(document: DocumentSnapshot): Chat {
         val chatRow = Chat()
-        document.data?.forEach { (key, value) ->
-            when (key) {
-                "chatName" -> {
-                    chatRow.chatName = value.toString()
-                }
-
-                "creationTimestamp" -> {
-                    chatRow.creationTimestamp = document.getTimestamp("creationTimestamp")?:Timestamp.now()
-                }
-
-                "hasCustomIcon" -> {
-                    chatRow.hasCustomIcon = document.getBoolean("hasCustomIcon") ?: false
-                }
-
-                "creatorId" -> {
-                    chatRow.creatorId = value.toString()
-                }
-
-                "membersId" -> {
-                    chatRow.membersId =
-                        (document.get("membersId") as ArrayList<String>).toTypedArray()
-                }
-
-                "administratorsId" -> {
-                    chatRow.administratorsId =
-                        (document.get("administratorsId") as ArrayList<String>).toTypedArray()
-                }
-
-                "lastMessage" -> {
-                    chatRow.lastMessage = value.toString()
-                }
-            }
-            chatRow.chatId = document.id
+        if(document.data!=null){
+            chatRow.chatName=document.data!!["chatName"] as String
+            chatRow.administratorsId=(document.data!!["administratorsId"] as ArrayList<String>).toTypedArray()
+            chatRow.membersId=(document.data!!["membersId"] as ArrayList<String>).toTypedArray()
+            chatRow.chatId=document.id
+            chatRow.creationTimestamp=document.getTimestamp("creationTimestamp")?: Timestamp.now()
+            chatRow.lastMessageTimestamp=document.getTimestamp("lastMessageTimestamp")?: Timestamp.now()
+            chatRow.hasCustomIcon=document.getBoolean("hasCustomIcon")?:false
+            chatRow.lastMessage=document.data!!["lastMessage"] as String
+            chatRow.creatorId=document.data!!["creatorId"] as String
         }
+
+        Log.e("documentToChatItem","$chatRow")
         return chatRow
 
     }
@@ -156,6 +136,9 @@ class ChatsCollection(userId: String) {
                 }
 
                 "lastMessage" -> chatRow.lastMessage = value.toString()
+                "lastMessageTimestamp" -> chatRow.lastMessageTimestamp =
+                    document.getTimestamp("lastMessageTimestamp")!!
+
             }
             chatRow.chatId = document.id
         }

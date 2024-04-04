@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.umgmesage.R
+import com.example.umgmesage.messaging.Models.Chat
 import com.example.umgmesage.messaging.Models.Message
 import com.example.umgmesage.messaging.Models.User
 

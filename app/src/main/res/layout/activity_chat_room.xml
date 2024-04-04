@@ -21,7 +21,7 @@
             android:layout_marginStart="10dp"
             android:layout_toRightOf="@id/profile_pic_layout"
             android:paddingTop="16dp"
-            android:text="Username"
+            tools:text="Username"
             android:textColor="@color/colorWhite"
             android:textSize="22sp"
             android:textStyle="bold" />
