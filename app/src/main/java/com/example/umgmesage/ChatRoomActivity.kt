@@ -68,6 +68,9 @@ class ChatRoomActivity : AppCompatActivity() {
             newMessage.text = binding.chatMessageInput.text.toString()
             newMessage.messageTimestamp = Timestamp.now()
             messagesCollection.insertMessage(newMessage)
+            chat.lastMessage="${userList.find { it.userId==userId }!!.userName}: ${newMessage.text}"
+            chat.lastMessageTimestamp=newMessage.messageTimestamp
+            chatCollection.updateChat(chat)
         }
 
         binding.backBtn.setOnClickListener {

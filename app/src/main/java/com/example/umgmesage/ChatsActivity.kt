@@ -84,9 +84,9 @@ class ChatsActivity : AppCompatActivity() {
                                 this.chatName = dc.document.getString("chatName").orEmpty()
                                 this.lastMessage = dc.document.getString("lastMessage").orEmpty()
                                 this.membersId =
-                                    (dc.document.get("membersId") as ArrayList<String>).toTypedArray()
+                                    (dc.document.get("membersId") as List<String>)
                                 this.administratorsId =
-                                    (dc.document.get("administratorsId") as ArrayList<String>).toTypedArray()
+                                    (dc.document.get("administratorsId") as List<String>)
                                 this.lastMessageTimestamp =
                                     dc.document.getTimestamp("lastMessageTimestamp")
                                         ?: Timestamp.now()

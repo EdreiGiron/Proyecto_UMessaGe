@@ -97,8 +97,8 @@ class ChatsCollection(userId: String) {
         val chatRow = Chat()
         if(document.data!=null){
             chatRow.chatName=document.data!!["chatName"] as String
-            chatRow.administratorsId=(document.data!!["administratorsId"] as ArrayList<String>).toTypedArray()
-            chatRow.membersId=(document.data!!["membersId"] as ArrayList<String>).toTypedArray()
+            chatRow.administratorsId=(document.data!!["administratorsId"] as List<String>)
+            chatRow.membersId=(document.data!!["membersId"] as ArrayList<String>)
             chatRow.chatId=document.id
             chatRow.creationTimestamp=document.getTimestamp("creationTimestamp")?: Timestamp.now()
             chatRow.lastMessageTimestamp=document.getTimestamp("lastMessageTimestamp")?: Timestamp.now()
@@ -127,12 +127,12 @@ class ChatsCollection(userId: String) {
                 "creatorId" -> chatRow.creatorId = value.toString()
                 "membersId" -> {
                     chatRow.membersId =
-                        (document.get("membersId") as ArrayList<String>).toTypedArray()
+                        (document.get("membersId") as ArrayList<String>)
                 }
 
                 "administratorsId" -> {
                     chatRow.administratorsId =
-                        (document.get("administratorsId") as ArrayList<String>).toTypedArray()
+                        (document.get("administratorsId") as ArrayList<String>)
                 }
 
                 "lastMessage" -> chatRow.lastMessage = value.toString()
