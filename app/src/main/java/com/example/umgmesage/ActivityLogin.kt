@@ -17,6 +17,7 @@ class ActivityLogin : AppCompatActivity() {
     private lateinit var txtInputPassword: EditText
     private lateinit var btnLogin: Button
     private lateinit var mAuth: FirebaseAuth
+    private lateinit var lblOlvidasteContra: TextView
     private lateinit var mProgressBar: ProgressDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,6 +27,7 @@ class ActivityLogin : AppCompatActivity() {
         txtInputPassword = findViewById(R.id.inputPassword)
         btnLogin = findViewById(R.id.btnlogin)
         lblCrearCuenta = findViewById(R.id.txtNotieneCuenta)
+        lblOlvidasteContra = findViewById(R.id.forgotPassword)
 
         lblCrearCuenta.setOnClickListener {
             startActivity(Intent(this@ActivityLogin, ActivityRegister::class.java))
@@ -33,10 +35,13 @@ class ActivityLogin : AppCompatActivity() {
         btnLogin.setOnClickListener {
             verificarCredenciales()
         }
-
+        lblOlvidasteContra.setOnClickListener {
+            startActivity(Intent(this@ActivityLogin, ActivityPassw::class.java))
+        }
         mProgressBar = ProgressDialog(this)
 
         mAuth = FirebaseAuth.getInstance()
+
     }
 
     private fun verificarCredenciales() {
@@ -45,8 +50,16 @@ class ActivityLogin : AppCompatActivity() {
 
 
         when {
-            email.isEmpty() || !email.contains("@") -> showError(txtInputEmail, "Por favor ingrese su correo electrónico")
-            password.isEmpty() || password.length < 7 -> showError(txtInputPassword, "Password invalida")
+            email.isEmpty() || !email.contains("@") -> showError(
+                txtInputEmail,
+                "Por favor ingrese su correo electrónico"
+            )
+
+            password.isEmpty() || password.length < 7 -> showError(
+                txtInputPassword,
+                "Password invalida"
+            )
+
             else -> {
                 mProgressBar.setTitle("Login")
                 mProgressBar.setMessage("Iniciando sesión, espere un momento..")
@@ -64,10 +77,15 @@ class ActivityLogin : AppCompatActivity() {
                             intent.putExtra("userId", user.uid)
                         }
 
-                            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                        intent.flags =
+                            Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                         startActivity(intent)
                     } else {
-                        Toast.makeText(applicationContext, "No se pudo iniciar sesion, verifique los datos de correo/password", Toast.LENGTH_LONG).show()
+                        Toast.makeText(
+                            applicationContext,
+                            "No se pudo iniciar sesion, verifique los datos de correo/password",
+                            Toast.LENGTH_LONG
+                        ).show()
                     }
                 }
             }

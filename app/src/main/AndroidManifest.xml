@@ -17,6 +17,9 @@
             android:name=".ActivityRegister"
             android:exported="false" />
         <activity
+            android:name=".ActivityPassw"
+            android:exported="false" />
+        <activity
             android:name=".ChatRoomActivity"
             android:exported="false" />
         <activity

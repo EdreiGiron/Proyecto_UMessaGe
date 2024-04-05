@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/background_login"
+        android:paddingBottom="10dp">
+
+        <TextView
+            android:id="@+id/tvTittleUsers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@id/back_btn_new_chat"
+            android:gravity="center|center"
+            android:textColor="@color/colorWhite"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            tools:text="Usuarios" />
+
+
+        <ImageButton
+            android:id="@+id/back_btn_new_chat"
+            android:layout_width="46dp"
+            android:layout_height="46dp"
+            android:layout_centerVertical="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/icon_back"
+            app:tint="@color/colorWhite" />
+
+    </RelativeLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/new_chat_recicler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/botton_chatName_layout"
+        android:layout_below="@id/toolbar" />
+
+    <RelativeLayout
+        android:id="@+id/bottom_layout"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:layout_alignParentBottom="true"
+        android:padding="8dp">
+
+        <Button
+            android:id="@+id/btn_start_chat"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_centerInParent="true"
+            android:layout_marginStart="10dp"
+            android:backgroundTint="@color/forgot_password"
+            android:padding="8dp"
+            android:text="Iniciar Chat"
+            android:textColor="@color/white"
+            android:textSize="25sp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/botton_chatName_layout"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_above="@id/bottom_layout"
+        android:paddingHorizontal="20dp">
+
+        <EditText
+            android:id="@+id/new_chat_name_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@drawable/edit_text_rounded_corner"
+            android:elevation="4dp"
+            android:textSize="17sp"
+            android:hint="Nombre del nuevo chat"
+            android:padding="5dp"
+            android:textColorHint="#80262626" />
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

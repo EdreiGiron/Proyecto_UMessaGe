@@ -6,6 +6,55 @@
     android:layout_height="match_parent"
     tools:context=".ChatsActivity">
 
+    <LinearLayout
+        android:id="@id/logo"
+        android:paddingEnd="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/background_login"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/logo_umessage1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="UM"
+            android:textColor="@color/umessage_logo"
+            android:textSize="40sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/logo_umessage2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="essa"
+            android:textColor="@color/colorWhite"
+            android:textSize="40sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/logo_umessage3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="G"
+            android:textColor="@color/umessage_logo"
+            android:textSize="40sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/logo_umessage4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="e"
+            android:textColor="@color/colorWhite"
+            android:textSize="40sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvChatList"
         android:layout_width="match_parent"
@@ -14,7 +63,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/logo"
         app:layout_constraintVertical_bias="1.0" />
 
     <androidx.cardview.widget.CardView
@@ -22,7 +71,7 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_margin="16dp"
-        app:cardBackgroundColor="@color/cardview_dark_background"
+        app:cardBackgroundColor="@color/umessage_logo"
         app:cardCornerRadius="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
@@ -34,11 +83,11 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textAlignment="center"
                 android:layout_gravity="center"
+                android:autoSizeTextType="uniform"
                 android:text="@string/plus_chat_button"
-                android:textColor="@color/white"
-                android:autoSizeTextType="uniform" />
+                android:textAlignment="center"
+                android:textColor="@color/white" />
         </FrameLayout>
 
     </androidx.cardview.widget.CardView>

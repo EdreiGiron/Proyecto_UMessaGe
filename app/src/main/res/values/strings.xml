@@ -9,4 +9,6 @@
     <string name="confirm_password">Confirmar contraseña</string>
     <string name="plus_chat_button">+</string>
     <string name="registro_de_usuario">Registro de usuario</string>
+    <string name="recuperar">Recuperar Contraseña</string>
+    <string name="btn_recuperar">Recuperar</string>
 </resources>

@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/background_login"
-        android:padding="25dp">
+        android:paddingBottom="10dp">
 
         <TextView
             android:id="@+id/other_username"
@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginStart="10dp"
-            android:layout_toRightOf="@id/profile_pic_layout"
+            android:layout_toEndOf="@id/profile_pic_layout"
             android:paddingTop="16dp"
             tools:text="Username"
             android:textColor="@color/colorWhite"
@@ -33,10 +33,10 @@
             android:layout_height="48dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            android:layout_toRightOf="@id/back_btn" />
+            android:layout_toEndOf="@id/backBtn" />
 
         <ImageButton
-            android:id="@+id/back_btn"
+            android:id="@+id/backBtn"
             android:layout_width="46dp"
             android:layout_height="46dp"
             android:layout_centerVertical="true"
@@ -66,13 +66,14 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_marginStart="10dp"
+            android:textColorHint="#80262626"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
-            android:layout_toLeftOf="@id/message_send_btn"
+            android:layout_toStartOf="@id/message_send_btn"
             android:background="@drawable/edit_text_rounded_corner"
             android:elevation="4dp"
-            android:hint="Write message here"
+            android:hint="Escribe un mensaje"
             android:padding="10dp" />
 
         <ImageButton
