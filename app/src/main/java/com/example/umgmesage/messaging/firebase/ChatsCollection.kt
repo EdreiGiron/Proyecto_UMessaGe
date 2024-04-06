@@ -13,11 +13,12 @@ import com.example.umgmesage.messaging.Models.Chat
 
 class ChatsCollection(userId: String) {
     private val firestoreInstance = FirebaseFirestore.getInstance()
-    private val chatCollectionReference = firestoreInstance.collection("Chats")
+    val chatCollectionReference = firestoreInstance.collection("Chats")
     val userChatsList: Query = chatCollectionReference.whereArrayContains("membersId", userId)
         .orderBy("creationTimestamp", Query.Direction.DESCENDING)
 
-    fun insertChat(chat: Chat) {
+    fun insertChat(chat: Chat):String?{
+        var insertResult:String?=null
         CoroutineScope(Dispatchers.IO).launch {
             chat.creationTimestamp = Timestamp.now()
             chatCollectionReference.add(chat).addOnSuccessListener { documentReference ->
@@ -25,10 +26,12 @@ class ChatsCollection(userId: String) {
                     "ChatsCollection.insertChat",
                     "Chat successfully inserted with ID ${documentReference.id}"
                 )
+                insertResult=documentReference.id
             }.addOnFailureListener { e ->
                 Log.e("ChatsCollection.insertChat", "Error inserting chat: $e")
             }
         }
+        return insertResult
     }
 
     fun updateChat(chat: Chat) {

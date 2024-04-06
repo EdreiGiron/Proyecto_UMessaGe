@@ -30,6 +30,7 @@ class ChatsActivity : AppCompatActivity() {
         setContentView(binding.root)
         initComponents()
         initUI()
+        initListeners()
     }
 
     private fun initComponents() {
@@ -111,7 +112,8 @@ class ChatsActivity : AppCompatActivity() {
 
     private fun initListeners(){
         binding.cvAddChat.setOnClickListener {
-            val intent = Intent(this, ChatRoomActivity::class.java)
+            val intent = Intent(this, NewChatActivity::class.java)
+            intent.putExtra("userId",userId)
             startActivity(intent)
         }
     }

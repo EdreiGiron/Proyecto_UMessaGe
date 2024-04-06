@@ -50,6 +50,7 @@ class ChatRoomActivity : AppCompatActivity() {
         chatCollection = ChatsCollection(userId)
         usersCollection = UsersCollection()
         messagesCollection = MessagesCollection(chatId)
+        chat=chatCollection.getChat(chatId)
         userList = mutableListOf()
         messageList = mutableListOf()
     }
@@ -94,6 +95,7 @@ class ChatRoomActivity : AppCompatActivity() {
                 }
                 if (querySnapshot?.documentChanges != null) {
                     for (dc in querySnapshot.documentChanges) {
+                        if(dc.document.id==chatId)
                         chat = when (dc.type) {
                             DocumentChange.Type.ADDED -> {
                                 chatCollection.documentToChatItem(dc.document)
