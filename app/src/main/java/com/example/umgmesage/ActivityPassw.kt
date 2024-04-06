@@ -36,6 +36,7 @@ class ActivityPassw : AppCompatActivity() {
         mProgressBar = ProgressDialog(this)
     }
 
+    //metodo para que ingrese el correo, siempre y cuando sea correo con dominio "@miumg.edu.gt"
     private fun validate() {
         val allowedDomain = "@miumg.edu.gt"
         val email = txtInputEmail.text.toString()
@@ -58,6 +59,7 @@ class ActivityPassw : AppCompatActivity() {
         startActivity(Intent(this@ActivityPassw, ActivityLogin::class.java))
     }
 
+    //metodo para poder enviar el correo con la opcion de reinicio de password a los correos registrados en Firebase
     private fun sendEmail(email: String) {
         mAuth.sendPasswordResetEmail(email).addOnCompleteListener { task ->
             if (task.isSuccessful) {

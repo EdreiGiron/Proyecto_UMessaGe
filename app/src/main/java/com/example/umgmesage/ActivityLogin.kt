@@ -20,6 +20,11 @@ class ActivityLogin : AppCompatActivity() {
     private lateinit var lblOlvidasteContra: TextView
     private lateinit var mProgressBar: ProgressDialog
 
+
+    //Funcion principal
+
+    //La funcion de esta clase es que pueda realizar el usiario su inicio de sesion, media vez tenga correo registrado
+    //en la base de datos de Firebase, se creo metodo para login de usuario
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -43,12 +48,12 @@ class ActivityLogin : AppCompatActivity() {
         mAuth = FirebaseAuth.getInstance()
 
     }
-
+//Le permite al usuario poder ingresar sus credenciales como correo y contraseña
     private fun verificarCredenciales() {
         val email = txtInputEmail.text.toString()
         val password = txtInputPassword.text.toString()
 
-
+//condicion para que ingrese correo con @ y que la contraseña sea mayor a 7 digitos
         when {
             email.isEmpty() || !email.contains("@") -> showError(
                 txtInputEmail,
@@ -60,6 +65,7 @@ class ActivityLogin : AppCompatActivity() {
                 "Password invalida"
             )
 
+            //Si los datos estan correctos, muestra un progressbar que esta iniciando sesion
             else -> {
                 mProgressBar.setTitle("Login")
                 mProgressBar.setMessage("Iniciando sesión, espere un momento..")
@@ -80,7 +86,10 @@ class ActivityLogin : AppCompatActivity() {
                         intent.flags =
                             Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                         startActivity(intent)
+
+                        //si el usuario esta colocando mal los datos, muestra alerta que correo y password erroneos, los debe de corregir
                     } else {
+
                         Toast.makeText(
                             applicationContext,
                             "No se pudo iniciar sesion, verifique los datos de correo/password",

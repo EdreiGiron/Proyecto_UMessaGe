@@ -44,16 +44,22 @@ class ActivityRegister : AppCompatActivity() {
         mAuth = FirebaseAuth.getInstance()
         mProgressBar = ProgressDialog(this)
     }
+//Se crea metodo para que permita solo registrar correos con dominio de "@miumg.edu.gt"
 
+    //Adicional muestra una alerta que indica que solo pernmite correos umg
     private fun verificarCredenciales() {
         val newuser:User= User()
         val email = txtInputEmail.text.toString()
         val password = txtInputPassword.text.toString()
         val userName = txtInputUserName.text.toString()
+
+        //esta variable allowedDomain se creo para que permita solo correos con dominio umg, se restringe cualquier dominio como gmail etc
         val allowedDomain = "@miumg.edu.gt"
         when {
             email.isEmpty() -> showError(txtInputEmail, "Por favor, ingrese su correo electrónico")
             password.isEmpty() || password.length < 7 -> showError(txtInputPassword, "Contraseña invalida, el minimo es de 7 caracteres")
+
+            //muestra alerta de que solo permite registro con correos UMG
             !email.endsWith(allowedDomain) -> showError(txtInputEmail, "Solo se permiten correos electrónicos con dominio $allowedDomain")
             userName.isEmpty() || userName.length > 20 -> showError(txtInputUserName, "El nombre de usuario debe ser menor a 20 caracteres.")
             else -> {
