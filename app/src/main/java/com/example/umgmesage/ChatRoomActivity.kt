@@ -50,7 +50,7 @@ class ChatRoomActivity : AppCompatActivity() {
         chatCollection = ChatsCollection(userId)
         usersCollection = UsersCollection()
         messagesCollection = MessagesCollection(chatId)
-        chat=chatCollection.getChat(chatId)
+        chat = chatCollection.getChat(chatId)
         userList = mutableListOf()
         messageList = mutableListOf()
     }
@@ -69,8 +69,9 @@ class ChatRoomActivity : AppCompatActivity() {
             newMessage.text = binding.chatMessageInput.text.toString()
             newMessage.messageTimestamp = Timestamp.now()
             messagesCollection.insertMessage(newMessage)
-            chat.lastMessage="${userList.find { it.userId==userId }!!.userName}: ${newMessage.text}"
-            chat.lastMessageTimestamp=newMessage.messageTimestamp
+            chat.lastMessage =
+                "${userList.find { it.userId == userId }!!.userName}: ${newMessage.text}"
+            chat.lastMessageTimestamp = newMessage.messageTimestamp
             chatCollection.updateChat(chat)
             binding.chatMessageInput.text.clear()
         }
@@ -95,8 +96,7 @@ class ChatRoomActivity : AppCompatActivity() {
                 }
                 if (querySnapshot?.documentChanges != null) {
                     for (dc in querySnapshot.documentChanges) {
-                        if(dc.document.id==chatId)
-                        chat = when (dc.type) {
+                        if (dc.document.id == chatId) chat = when (dc.type) {
                             DocumentChange.Type.ADDED -> {
                                 chatCollection.documentToChatItem(dc.document)
                             }
@@ -110,8 +110,8 @@ class ChatRoomActivity : AppCompatActivity() {
                             }
                         }
 
-                        }
-                    runOnUiThread{binding.otherUsername.text = chat.chatName}
+                    }
+                    runOnUiThread { binding.otherUsername.text = chat.chatName }
                 }
             }
         }

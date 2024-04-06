@@ -1,6 +1,7 @@
 package com.example.umgmesage.messaging.Controllers
 
 import android.view.View
+import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.umgmesage.databinding.ItemForNewChatBinding
 import com.example.umgmesage.messaging.Models.Chat
@@ -10,7 +11,7 @@ class NewChatViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     private val binding = ItemForNewChatBinding.bind(view)
 
-    fun render(user: User, onItemSelected: (User) -> Unit) {
+    fun render(user: User, onItemSelected: (ViewGroup) -> Unit) {
         binding.tvUserEmailNewChat.text=user.userEmail
         binding.tvUserNameNewChat.text=user.userName
         if(user.hasCustomIcon) {
@@ -18,6 +19,6 @@ class NewChatViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         }else{
             binding.ivUserProfilePic.setImageResource(android.R.drawable.sym_def_app_icon)
         }
-        binding.root.setOnClickListener{onItemSelected(user)}
+        binding.root.setOnClickListener{onItemSelected(binding.root)}
     }
 }

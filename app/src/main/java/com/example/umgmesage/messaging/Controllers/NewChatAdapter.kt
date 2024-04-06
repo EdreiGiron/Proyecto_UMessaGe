@@ -2,6 +2,7 @@ package com.example.umgmesage.messaging.Controllers
 
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.umgmesage.R
@@ -9,7 +10,7 @@ import com.example.umgmesage.messaging.Models.Chat
 import com.example.umgmesage.messaging.Models.User
 
 class NewChatAdapter(
-    var users: MutableList<User> = mutableListOf(), private val onItemSelected: (User) -> Unit
+    var users: MutableList<User> = mutableListOf(), private val onItemSelected: (ViewGroup) -> Unit
 ) :
 
     RecyclerView.Adapter<NewChatViewHolder>() {

@@ -3,6 +3,7 @@ package com.example.umgmesage
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.TextView
 import android.widget.Toast
@@ -49,7 +50,7 @@ class NewChatActivity : AppCompatActivity() {
 
     private fun subscribeToUserUpdates() {
         CoroutineScope(Dispatchers.IO).launch {
-            usersCollection.userCollectionReference.whereNotEqualTo("userName", userId)
+            usersCollection.userCollectionReference.whereNotEqualTo("userId", userId)
                 .addSnapshotListener { querySnapshot, firebaseFirestoreException ->
                     firebaseFirestoreException?.let {
                         runOnUiThread {
@@ -127,24 +128,13 @@ class NewChatActivity : AppCompatActivity() {
             newChat.membersId = membersList.toList()
             createNewChatTask(newChat)
         }
+
+        binding.backBtnNewChat.setOnClickListener {
+            super.finish()
+        }
     }
 
-    /*chatsCollection.insertChat(newChat)
-        val newChatId:String?=
-            if(newChatId!=null){
-                Toast.makeText(
-                    binding.root.context,
-                    "Se ha creado el chat exitosamente.",
-                    Toast.LENGTH_LONG
-                ).show()
-                navigateToNewChatRoom(newChatId)
-            }else{
-                Toast.makeText(
-                    binding.root.context,
-                    "No se ha creado el chat debido a un error interno.",
-                    Toast.LENGTH_LONG
-                ).show()    */
-    fun createNewChatTask(chat: Chat) {
+   fun createNewChatTask(chat: Chat) {
         CoroutineScope(Dispatchers.IO).launch {
             val chatId: String? = chatsCollection.insertChat(chat)
             super.finish()
@@ -153,9 +143,13 @@ class NewChatActivity : AppCompatActivity() {
 
 
     private fun initUI() {
-        newChatAdapter = NewChatAdapter(usersList) { }
+        newChatAdapter = NewChatAdapter(usersList) {user -> setUserSelected(user)}
         binding.newChatReciclerView.layoutManager = LinearLayoutManager(this)
         binding.newChatReciclerView.adapter = newChatAdapter
+    }
+
+    private fun setUserSelected(view:ViewGroup) {
+        view.findViewById<CheckBox>(R.id.cbAddNewChat).toggle()
     }
 
     private fun navigateToNewChatRoom(chatId: String) {
