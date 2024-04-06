@@ -1,0 +1,17 @@
+Index: app/src/main/res/values/strings.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><resources>\r\n    <string name=\"app_name\">umgmesage</string>\r\n    <string name=\"txv_iniciar\">Iniciar Sesion</string>\r\n    <string name=\"password\">Contraseña</string>\r\n    <string name=\"olvido_su_clave\">¿Olvido su Clave?</string>\r\n    <string name=\"btn_ingresar\">Ingresar</string>\r\n    <string name=\"no_tiene_una_cuenta\">¿No tiene cuenta?</string>\r\n    <string name=\"registrese\">Regitrarse</string>\r\n    <string name=\"confirm_password\">Confirmar contraseña</string>\r\n    <string name=\"plus_chat_button\">+</string>\r\n</resources>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/values/strings.xml b/app/src/main/res/values/strings.xml
+--- a/app/src/main/res/values/strings.xml	(revision d5a727c2659609fc6eb06de0e77048b7fa286c2c)
++++ b/app/src/main/res/values/strings.xml	(date 1712266821813)
+@@ -8,4 +8,5 @@
+     <string name="registrese">Regitrarse</string>
+     <string name="confirm_password">Confirmar contraseña</string>
+     <string name="plus_chat_button">+</string>
++    <string name="registro_de_usuario">Registro de usuario</string>
+ </resources>
+\ No newline at end of file
